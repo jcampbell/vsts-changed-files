@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
-  "id": "501f2450-cb2a-4911-9385-2e61c8808137",
+  "id": "8ce08d5e-2516-40fa-88aa-ae632764807d",
   "name": "ChangedFiles",
   "friendlyName": "Check Changed Files",
   "description": "Pipeline task to check if some files changed since last build",
@@ -10,8 +10,8 @@
   "author": "Touchify",
   "version": {
     "Major": 1,
-    "Minor": 1,
-    "Patch": 2
+    "Minor": 3,
+    "Patch": 1
   },
   "instanceNameFormat": "Check changed files: $(variable)",
   "groups": [
