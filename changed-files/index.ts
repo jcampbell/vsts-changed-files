@@ -13,7 +13,7 @@ run();
 async function run(): Promise<void> {
     try {
         const context = createContext();
-        const client = await initializeClient();
+        const client = await initializeClient(context);
 
         const files = await getChangedFiles(client, context);
         const changes = getChangesPerVariable(files, context);
@@ -46,38 +46,46 @@ function createContext(): Context {
     };
 }
 
-async function initializeClient(): Promise<IBuildApi> {
+async function initializeClient( { inputs: { verbose } }: Context ): Promise<IBuildApi> {
     const orgUri = getVariable("System.TeamFoundationCollectionUri");
     // Allow a missing AccessToken to default to an empty string to allow public API access
-    const accessToken = getVariable("System.AccessToken", "");
+    const accessToken = getVariable("System.AccessToken", "", { verbose });
 
     return createClient(orgUri, accessToken);
 }
 
 async function getChangedFiles(client: IBuildApi, { project, inputs: { cwd, verbose } }: Context): Promise<string[] | undefined> {
-    logVerbose("> Fetching latest succeeded build", { verbose });
+    const targetBranch = getVariable("System.PullRequest.TargetBranch", "");
+    let files;
+    if (targetBranch != "" && await gitVerify(targetBranch, { cwd, verbose })) {
+        logVerbose(`> Checking diff with targetBranch ${targetBranch}`, { verbose });
+        files = await gitDiff("HEAD", targetBranch, { cwd, verbose });
+    } else {
+        logVerbose("> Fetching latest succeeded build", { verbose });
 
-    const definitionId = parseInt(getVariable("System.DefinitionId"));
-    const latestBuild = await getLatestBuild(client, project, definitionId);
+        const definitionId = parseInt(getVariable("System.DefinitionId"));
+        const latestBuild = await getLatestBuild(client, project, definitionId);
+    
+        if (!latestBuild || !latestBuild.sourceVersion) {
+            logVerbose(">> No previous build found: consider that all files changed!", { verbose });
+            return;
+        }
+    
+        logVerbose(`> Last succeeded build found: ${latestBuild.buildNumber}`, { verbose });
+    
+        if (getVariable("Build.SourceVersion") === latestBuild.sourceVersion) {
+            logVerbose(">> No new commit since last build: consider that no file changed!", { verbose });
+            return [];
+        }
+    
+        if (!await gitVerify(latestBuild.sourceVersion, { cwd, verbose })) {
+            logVerbose(">> Previous build source invalid: consider that all files changed!", { verbose });
+            return;
+        }
 
-    if (!latestBuild || !latestBuild.sourceVersion) {
-        logVerbose(">> No previous build found: consider that all files changed!", { verbose });
-        return;
+        logVerbose(`> Checking diff with commit ${latestBuild.sourceVersion}`, { verbose });
+        files = await gitDiff("HEAD", latestBuild.sourceVersion, { cwd, verbose });
     }
-
-    logVerbose(`> Last succeeded build found: ${latestBuild.buildNumber}`, { verbose });
-
-    if (getVariable("Build.SourceVersion") === latestBuild.sourceVersion) {
-        logVerbose(">> No new commit since last build: consider that no file changed!", { verbose });
-        return [];
-    }
-
-    if (!await gitVerify(latestBuild.sourceVersion, { cwd, verbose })) {
-        logVerbose(">> Previous build source invalid: consider that all files changed!", { verbose });
-        return;
-    }
-
-    const files = await gitDiff("HEAD", latestBuild.sourceVersion, { cwd, verbose });
 
     if (files.length > 0) {
         logVerbose(">> Changes since last succeeded build:", { verbose });

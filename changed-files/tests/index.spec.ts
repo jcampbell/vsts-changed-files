@@ -181,4 +181,34 @@ describe("vsts-changed-files", () => {
 
     });
 
+    describe("pullRequest", () => {
+        test("pullRequest Should : check files changed against named branch", () => {
+            const tr = new ttm.MockTestRunner(path.join(__dirname, "30-target-branch.runner.js"));
+            tr.run();
+
+            expect(tr.succeeded).toBe(true);
+
+            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.warningIssues).toHaveLength(0);
+            expect(tr.errorIssues).toHaveLength(0);
+
+            expect(tr.stdout).toContain("##vso[task.setvariable variable=HasChanged;isOutput=true;]true");
+            expect(tr.stderr).toBeFalsy();
+        });
+
+        test("pullRequest Should : check previous build if no targetBranch is present", () => {
+            const tr = new ttm.MockTestRunner(path.join(__dirname, "31-target-branch-missing.runner.js"));
+            tr.run();
+
+            expect(tr.succeeded).toBe(true);
+
+            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.warningIssues).toHaveLength(0);
+            expect(tr.errorIssues).toHaveLength(0);
+
+            expect(tr.stdout).toContain("##vso[task.setvariable variable=HasChanged;isOutput=true;]true");
+            expect(tr.stderr).toBeFalsy();
+        });
+    });
+
 });
