@@ -78,6 +78,12 @@ jobs:
 * __cwd__: Change the current working directory. _Default:_ `$(System.DefaultWorkingDirectory)`
 * __verbose__: Enable verbose logging. _Default:_ `false`.
 
+## Packaging
+
+1. ensure task.json is updated
+2. `npm run build`
+
+
 ## License
 
 [MIT](https://raw.githubusercontent.com/touchifyapp/vsts-changed-files/master/LICENSE)
