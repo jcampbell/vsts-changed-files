@@ -32,6 +32,7 @@ tmr.setAnswers({
         "/bin/git": true
     },
     exec: {
+        "/bin/git fetch origin latest_commit_id": { code: 0 },
         "/bin/git cat-file -t latest_commit_id": {
             code: -1,
             stdout: "fatal: Not a valid object name latest_commit_id"

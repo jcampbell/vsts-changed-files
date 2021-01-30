@@ -11,7 +11,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.invokedToolCount).toBe(3);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 
@@ -53,7 +53,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.invokedToolCount).toBe(3);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 
@@ -67,7 +67,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.invokedToolCount).toBe(3);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 
@@ -81,7 +81,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(1);
+            expect(tr.invokedToolCount).toBe(2);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 
@@ -99,7 +99,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.invokedToolCount).toBe(3);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 
@@ -113,7 +113,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.invokedToolCount).toBe(3);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 
@@ -131,7 +131,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.invokedToolCount).toBe(3);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 
@@ -147,7 +147,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.invokedToolCount).toBe(3);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 
@@ -166,7 +166,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.invokedToolCount).toBe(3);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 
@@ -188,7 +188,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.invokedToolCount).toBe(3);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 
@@ -202,7 +202,7 @@ describe("vsts-changed-files", () => {
 
             expect(tr.succeeded).toBe(true);
 
-            expect(tr.invokedToolCount).toBe(2);
+            expect(tr.invokedToolCount).toBe(3);
             expect(tr.warningIssues).toHaveLength(0);
             expect(tr.errorIssues).toHaveLength(0);
 

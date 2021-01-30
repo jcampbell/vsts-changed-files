@@ -40,6 +40,7 @@ tmr.setAnswers({
         "/bin/git": true
     },
     exec: {
+        "/bin/git fetch origin latest_commit_id": { code: 0 },
         "/bin/git cat-file -t latest_commit_id": { code: 0 },
         "/bin/git diff --name-only HEAD latest_commit_id .": {
             code: 0,

@@ -1,4 +1,5 @@
 import { PassThrough } from "stream";
+import { logVerbose } from "./util";
 
 import * as tl from "azure-pipelines-task-lib/task";
 
@@ -27,10 +28,10 @@ export async function gitDiff(from: string, to: string, { cwd, verbose }: { cwd?
     });
 }
 
-export async function gitVerify(commitId: string, { cwd, verbose }: { cwd?: string; verbose?: boolean } = {}): Promise<boolean> {
-    if (verbose) {
-        console.log(`> Executing git cat-file with ${commitId}`);
-    }
-
+export async function gitVerify(commitId: string, { cwd, verbose }: { cwd?: string; verbose: boolean } = {verbose: false}): Promise<boolean> {
+    logVerbose(`> Executing git fetch origin with ${commitId}`, {verbose});
+    const fetch_result = 0 === await tl.exec("git", ["fetch", "origin", `${commitId}:${commitId}`], { cwd, ignoreReturnCode: true });
+    logVerbose(`> fetch result: ${fetch_result}`, {verbose});
+    logVerbose(`> Executing git cat-file with ${commitId}`, {verbose});
     return 0 === await tl.exec("git", ["cat-file", "-t", commitId], { cwd, ignoreReturnCode: true });
 }

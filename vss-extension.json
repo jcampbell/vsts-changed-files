@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "vsts-changed-files",
-  "version": "1.3.2",
+  "version": "1.3.4",
   "name": "Changed files",
   "description": "Pipeline task to get changed files since last build.",
   "publisher": "Superconductive",

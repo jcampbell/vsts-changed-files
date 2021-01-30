@@ -32,6 +32,7 @@ tmr.setAnswers({
         "/bin/git": true
     },
     exec: {
+        "/bin/git fetch origin develop": { code: 0 },
         "/bin/git cat-file -t develop": { code: 0 },
         "/bin/git diff --name-only HEAD develop .": {
             code: 0,
